@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "aaf1fa2a-06f4-497c-8f8a-f2c49295cd9b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -35,6 +44,17 @@
                     "processors": "InvertVector2(invertX=false),StickDeadzone,ScaleVector2(x=300,y=300)",
                     "groups": "Gamepad",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "316397c4-fe60-4922-af3b-2f2588f68dd6",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
