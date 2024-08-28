@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.unity.cinemachine": "2.9.5",
+    "com.unity.cloud.gltfast": "6.7.1",
     "com.unity.collab-proxy": "2.4.4",
     "com.unity.feature.development": "1.0.1",
     "com.unity.inputsystem": "1.7.0",
