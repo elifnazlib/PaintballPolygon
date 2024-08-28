@@ -17,11 +17,12 @@ public class WeaponRayCast : MonoBehaviour
         if(Input.GetButtonDown("Fire1")) {
             Shoot();
         }
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10, Color.red);
     }
 
     private void Shoot() {
-        Ray ray = new Ray(transform.position, transform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        
 
         RaycastHit hitData;
 
