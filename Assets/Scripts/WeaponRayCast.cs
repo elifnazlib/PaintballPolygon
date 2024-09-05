@@ -1,17 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponRayCast : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private GameManager gameManager;
+    private void Start() {
+        gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager));
     }
-
-    // Update is called once per frame
     void Update()
     {
         if(Input.GetButtonDown("Fire1")) {
@@ -23,13 +17,12 @@ public class WeaponRayCast : MonoBehaviour
     private void Shoot() {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         
-
         RaycastHit hitData;
 
         if (Physics.Raycast(ray, out hitData))
         {
-            // The Ray hit something!
-            Debug.Log(hitData.collider.gameObject.name);
+            // Debug.Log(hitData.collider.gameObject.name);
+            gameManager.UpdateScore(hitData.collider.gameObject.name);
         }
     }
 }
