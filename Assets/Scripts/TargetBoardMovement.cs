@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TargetBoardMovement : MonoBehaviour
 { 
-    [SerializeField] private GameObject endPoint;
-    private Vector3 endPosition;
-    private Vector3 startPosition;
+    private Vector3 endPointPosition;
+
+    public Vector3 EndPointPosition
+    {
+        get {return endPointPosition; }
+        set {endPointPosition = value; }
+    }
     [SerializeField] private float desiredDuration;
+    private Vector3 startPosition;
     private float elapsedTime;
 
     void Start()
@@ -17,9 +20,12 @@ public class TargetBoardMovement : MonoBehaviour
 
     void Update()
     {
+        // Movement logic of the target board
         elapsedTime += Time.deltaTime;
         float percentageComplete = elapsedTime / desiredDuration;
 
-        transform.position = Vector3.Lerp(startPosition, endPoint.transform.position, percentageComplete);
+        transform.position = Vector3.Lerp(startPosition, endPointPosition, percentageComplete);
     }
+
+
 }
