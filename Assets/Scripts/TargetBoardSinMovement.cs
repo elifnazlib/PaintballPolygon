@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// Deprecated script
 
 public class TargetBoardSinMovement : MonoBehaviour
 {
