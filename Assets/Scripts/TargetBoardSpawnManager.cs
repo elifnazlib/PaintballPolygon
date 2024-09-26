@@ -11,6 +11,7 @@ public class TargetBoardSpawnManager : MonoBehaviour
     [SerializeField] private GameObject[] endPoints; // Possible end points of target board
     [SerializeField] private float maxDurationForLerp = 10f, minDurationForLerp = 1f; // Minimum and maximum desired duration for lerp operation of target board
     [SerializeField] private float minWaitDurationForCreations = 1f, maxWaitDurationForCreations = 6f; // Minimum and maximum durations between target boards' creations
+    [SerializeField] private float minScaleForInstantiation = 0.2f, maxScaleForInstantiation = 0.5f; // Minimum and maximum scales for target board instantiations
     private Random random; // Random instance from System.Random
 
     void Start()
@@ -25,9 +26,10 @@ public class TargetBoardSpawnManager : MonoBehaviour
         int randomEndPointIndex  = random.Next(0, endPoints.Length); // Index of random end point
         float randomDurationForLerp = UnityEngine.Random.Range(minDurationForLerp, maxDurationForLerp); // Random duration for lerp (Used UnityEngine.Random.Range() to generate random floats)
         float randomDurationForCreation = UnityEngine.Random.Range(minWaitDurationForCreations, maxWaitDurationForCreations); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
-
-        // Instatiation of the target board with assigned prefab, random start point, and rotation of prefab
-        GameObject createdTargetBoard = Instantiate(targetBoardPrefab, startPoints[randomStartPointIndex].transform.position, targetBoardPrefab.transform.rotation);
+        float randomScaleForCreation = UnityEngine.Random.Range(minScaleForInstantiation, maxScaleForInstantiation); // Random scale for creation (Used UnityEngine.Random.Range() to generate random floats)
+        
+        targetBoardPrefab.gameObject.transform.localScale = new Vector3(randomScaleForCreation, randomScaleForCreation, randomScaleForCreation); // Setting the scale of the target board prefab
+        GameObject createdTargetBoard = Instantiate(targetBoardPrefab, startPoints[randomStartPointIndex].transform.position, targetBoardPrefab.transform.rotation); // Instatiation of the target board with assigned prefab, random start point, and rotation of prefab
 
         TargetBoardMovement createdTargetBoardsTBM = createdTargetBoard.GetComponent<TargetBoardMovement>(); // Storing the TargetBoardMovement script of created target board to use it later (for better performance)
         createdTargetBoardsTBM.EndPointPosition = endPoints[randomEndPointIndex].transform.position; // Setting the end point variable of the TargetBoardMovement.cs
@@ -43,5 +45,6 @@ public class TargetBoardSpawnManager : MonoBehaviour
         // TODO: If the target board does not get shot; ???
         // TODO: Object Pooling for optimization
         // TODO: Set the optimal min max values for randomizations
+        
     }
 }

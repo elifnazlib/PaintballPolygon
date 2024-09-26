@@ -413,6 +413,8 @@ MonoBehaviour:
   minDurationForLerp: 1
   minWaitDurationForCreations: 1
   maxWaitDurationForCreations: 6
+  minScaleForInstantiation: 0.2
+  maxScaleForInstantiation: 0.5
 --- !u!114 &249471212
 MonoBehaviour:
   m_ObjectHideFlags: 0
