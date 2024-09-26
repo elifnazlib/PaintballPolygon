@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 // This script is used to control the raycast of the weapon.
-public class WeaponRayCast : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     private GameManager gameManager; // GameManager instance to update the score
+    [SerializeField] private int forceMultiplier = 10; // Multiplier for the force applied to the inner circles
     
     private void Start() { 
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
@@ -27,21 +29,16 @@ public class WeaponRayCast : MonoBehaviour
         if (Physics.Raycast(ray, out hitData)) // If the ray hits something
         {
             GameObject hitGameObject = hitData.collider.gameObject;
-            
             GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
-
-            // DEBUGGING
-            // List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
-            // foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
-            // {
-            //     listOfSiblings.Add(sibling.gameObject);
-            // }
-            //## DEBUGGING
             
             if (hitGameObject.CompareTag("TargetBoard") && parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore)
             {
-                
-                // Stop scoring
+                List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
+                foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
+                {
+                    listOfSiblings.Add(sibling.gameObject); // Adding the sibling to the list
+                }
+                // Stopping scoring
                 gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
                 parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore = false; // Preventing the multiple score updates for the same target board
 
@@ -52,7 +49,17 @@ public class WeaponRayCast : MonoBehaviour
                 // }
                 //## DEBUGGING
                 
-                // TODO: Fall down or tear apart
+                foreach (GameObject inner in listOfSiblings)
+                {
+                    // Fall down or tear apart
+                    inner.GetComponent<MeshCollider>().convex = true; // Making the inner circles convex
+                    Rigidbody rb = inner.AddComponent(typeof(Rigidbody)) as Rigidbody; // Adding a rigidbody to the inner circles
+
+                    rb.useGravity = true; // Applying gravity to the inner circles
+                    rb.AddForce(Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
+                    //## Fall down or tear apart
+                }
+                
                 // TODO: Wait a while
                 // TODO: Destroy
             }

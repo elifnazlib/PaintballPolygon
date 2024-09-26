@@ -461,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb79b41a1f14be54988085c631a5e01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceMultiplier: 10
 --- !u!65 &254038359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1854,7 +1855,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3019802357415506049, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8345070699079395522, guid: 09aade0ecefd01e4b8f7661acf64f5c2, type: 3}
       propertyPath: m_RootOrder
