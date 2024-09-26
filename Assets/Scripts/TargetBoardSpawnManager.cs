@@ -31,10 +31,10 @@ public class TargetBoardSpawnManager : MonoBehaviour
         targetBoardPrefab.gameObject.transform.localScale = new Vector3(randomScaleForCreation, randomScaleForCreation, randomScaleForCreation); // Setting the scale of the target board prefab
         GameObject createdTargetBoard = Instantiate(targetBoardPrefab, startPoints[randomStartPointIndex].transform.position, targetBoardPrefab.transform.rotation); // Instatiation of the target board with assigned prefab, random start point, and rotation of prefab
 
-        TargetBoardMovement createdTargetBoardsTBM = createdTargetBoard.GetComponent<TargetBoardMovement>(); // Storing the TargetBoardMovement script of created target board to use it later (for better performance)
-        createdTargetBoardsTBM.EndPointPosition = endPoints[randomEndPointIndex].transform.position; // Setting the end point variable of the TargetBoardMovement.cs
+        TargetBoard createdTargetBoardsTBM = createdTargetBoard.GetComponent<TargetBoard>(); // Storing the TargetBoard script of created target board to use it later (for better performance)
+        createdTargetBoardsTBM.EndPointPosition = endPoints[randomEndPointIndex].transform.position; // Setting the end point variable of the TargetBoard.cs
         createdTargetBoardsTBM.DesiredDuration = randomDurationForLerp; // Assigning the random speed of the target board
-        createdTargetBoardsTBM.AreVariablesAssigned = true; // To prevent the case "TargetBoardMovement.cs can reach the Lerp method before the created target board's end point position is assigned"
+        createdTargetBoardsTBM.AreVariablesAssigned = true; // To prevent the case "TargetBoard.cs can reach the Lerp method before the created target board's end point position is assigned"
 
         Debug.Log($"Waiting for {randomDurationForCreation} seconds."); // Debugging
         

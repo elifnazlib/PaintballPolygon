@@ -1,14 +1,21 @@
 using UnityEngine;
 
 // This script is used to control the movement of the target board.
-public class TargetBoardMovement : MonoBehaviour
+public class TargetBoard : MonoBehaviour
 { 
     private bool areVariablesAssigned = false;  // Is used to prevent the synchronization problem in TargetBoardSpawnManager.cs (for end point and desired duration)
-
+    private bool canUpdateScore = true;  // Is used to prevent the multiple score updates for the same target board
+    
     public bool AreVariablesAssigned
     {
         get {return areVariablesAssigned; }
         set {areVariablesAssigned = value; }
+    }
+    
+    public bool CanUpdateScore
+    {
+        get {return canUpdateScore; }
+        set {canUpdateScore = value; }
     }
 
     private Vector3 endPointPosition;   // end point position of the target board.

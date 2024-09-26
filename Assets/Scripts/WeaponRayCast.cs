@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 // This script is used to control the raycast of the weapon.
@@ -22,11 +23,40 @@ public class WeaponRayCast : MonoBehaviour
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); // Creating a ray from the camera to the forward direction
         
         RaycastHit hitData; // Storing the hit data
-
+        
         if (Physics.Raycast(ray, out hitData)) // If the ray hits something
         {
-            // Debug.Log(hitData.collider.gameObject.name);
-            gameManager.UpdateScore(hitData.collider.gameObject.name); // Updating the score according to the hit object
+            GameObject hitGameObject = hitData.collider.gameObject;
+            
+            GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
+
+            // DEBUGGING
+            // List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
+            // foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
+            // {
+            //     listOfSiblings.Add(sibling.gameObject);
+            // }
+            //## DEBUGGING
+            
+            if (hitGameObject.CompareTag("TargetBoard") && parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore)
+            {
+                
+                // Stop scoring
+                gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
+                parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore = false; // Preventing the multiple score updates for the same target board
+
+                // DEBUGGING
+                // foreach (GameObject inner in listOfSiblings)
+                // {
+                //     inner.GetComponent<MeshRenderer>().materials[0].color = Color.red; // Changing the color of the inner circles
+                // }
+                //## DEBUGGING
+                
+                // TODO: Fall down or tear apart
+                // TODO: Wait a while
+                // TODO: Destroy
+            }
+            
         }
     }
 }

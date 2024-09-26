@@ -8,21 +8,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6742727216228508420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6742727216228508420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: -6236644272472455425, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_Name
       value: Inner 5
       objectReference: {fileID: 0}
+    - target: {fileID: -6236644272472455425, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_TagString
+      value: TargetBoard
+      objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.45512453
+      value: 0.4532416
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.45512453
+      value: 0.4532416
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.45512453
+      value: 0.4532416
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72,6 +84,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -123607205084147587, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_TagString
+      value: TargetBoard
+      objectReference: {fileID: 0}
     - target: {fileID: 2111267097802698243, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_Name
       value: Inner 4
@@ -79,6 +95,10 @@ PrefabInstance:
     - target: {fileID: 2111267097802698243, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111267097802698243, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_TagString
+      value: TargetBoard
       objectReference: {fileID: 0}
     - target: {fileID: 5548163723043009383, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_Name
@@ -88,6 +108,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5548163723043009383, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_TagString
+      value: TargetBoard
+      objectReference: {fileID: 0}
     - target: {fileID: 6217463799874451323, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_Name
       value: Inner 1
@@ -96,9 +120,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6217463799874451323, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_TagString
+      value: TargetBoard
+      objectReference: {fileID: 0}
     - target: {fileID: 8771091787928289351, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_Name
       value: target_board_furko
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771091787928289351, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
+      propertyPath: m_TagString
+      value: TargetBoard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
