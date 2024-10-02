@@ -5,6 +5,7 @@ public class TargetBoard : MonoBehaviour
 { 
     private bool areVariablesAssigned = false;  // Is used to prevent the synchronization problem in TargetBoardSpawnManager.cs (for end point and desired duration)
     private bool canUpdateScore = true;  // Is used to prevent the multiple score updates for the same target board
+    private bool isShot = false; // Is used to prevent the movement of LERP after getting shot
     
     public bool AreVariablesAssigned
     {
@@ -16,6 +17,12 @@ public class TargetBoard : MonoBehaviour
     {
         get {return canUpdateScore; }
         set {canUpdateScore = value; }
+    }
+
+    public bool IsShot 
+    {
+        get {return isShot; }
+        set {isShot = value; }
     }
 
     private Vector3 endPointPosition;   // end point position of the target board.
@@ -42,7 +49,7 @@ public class TargetBoard : MonoBehaviour
 
     void Update()
     {
-        if(areVariablesAssigned){ // TODO: This line may need to change during object pooling implementation
+        if(areVariablesAssigned && !isShot) { // TODO: This line may need to change during object pooling implementation
             // Movement logic of the target board (https://www.youtube.com/watch?v=MyVY-y_jK1I)
             elapsedTime += Time.deltaTime;
             float percentageComplete = elapsedTime / desiredDuration;

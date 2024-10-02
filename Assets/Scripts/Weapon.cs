@@ -33,7 +33,9 @@ public class Weapon : MonoBehaviour
             GameObject hitGameObject = hitData.collider.gameObject;
             GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
             
-            if (hitGameObject.CompareTag("TargetBoard") && parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore)
+            TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
+            
+            if (hitGameObject.CompareTag("TargetBoard") && parentTargetBoard.CanUpdateScore)
             {
                 List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
                 foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
@@ -45,7 +47,8 @@ public class Weapon : MonoBehaviour
 
                 // Stopping scoring
                 gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
-                parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore = false; // Preventing the multiple score updates for the same target board
+                parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
+                parentTargetBoard.IsShot = true; // Preventing the movements on the ground
 
                 // DEBUGGING
                 // foreach (GameObject inner in listOfSiblings)
