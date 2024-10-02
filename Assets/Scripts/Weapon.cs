@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 // This script is used to control the raycast of the weapon.
@@ -7,6 +8,7 @@ public class Weapon : MonoBehaviour
 {
     private GameManager gameManager; // GameManager instance to update the score
     [SerializeField] private int forceMultiplier = 10; // Multiplier for the force applied to the inner circles
+    [SerializeField] private float minDurationForDisappear = 5f, maxDurationForDisappear = 10f; // Max and min durations for disappear of target boards after getting shot
     
     private void Start() { 
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
@@ -38,6 +40,9 @@ public class Weapon : MonoBehaviour
                 {
                     listOfSiblings.Add(sibling.gameObject); // Adding the sibling to the list
                 }
+
+                float randomDurationForDisappear= UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
+
                 // Stopping scoring
                 gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
                 parentOfHitGameObject.GetComponent<TargetBoard>().CanUpdateScore = false; // Preventing the multiple score updates for the same target board
@@ -58,10 +63,9 @@ public class Weapon : MonoBehaviour
                     rb.useGravity = true; // Applying gravity to the inner circles
                     rb.AddForce(Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
                     //## Fall down or tear apart
+
+                    Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
                 }
-                
-                // TODO: Wait a while
-                // TODO: Destroy
             }
             
         }

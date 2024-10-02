@@ -27,6 +27,7 @@ public class TargetBoardSpawnManager : MonoBehaviour
         float randomDurationForLerp = UnityEngine.Random.Range(minDurationForLerp, maxDurationForLerp); // Random duration for lerp (Used UnityEngine.Random.Range() to generate random floats)
         float randomDurationForCreation = UnityEngine.Random.Range(minWaitDurationForCreations, maxWaitDurationForCreations); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
         float randomScaleForCreation = UnityEngine.Random.Range(minScaleForInstantiation, maxScaleForInstantiation); // Random scale for creation (Used UnityEngine.Random.Range() to generate random floats)
+        // TODO: Make a generic random method or class
         
         targetBoardPrefab.gameObject.transform.localScale = new Vector3(randomScaleForCreation, randomScaleForCreation, randomScaleForCreation); // Setting the scale of the target board prefab
         GameObject createdTargetBoard = Instantiate(targetBoardPrefab, startPoints[randomStartPointIndex].transform.position, targetBoardPrefab.transform.rotation); // Instatiation of the target board with assigned prefab, random start point, and rotation of prefab
