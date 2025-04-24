@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     private GameManager gameManager; // GameManager instance to update the score
     [SerializeField] private int forceMultiplier = 10; // Multiplier for the force applied to the inner circles
     [SerializeField] private float minDurationForDisappear = 5f, maxDurationForDisappear = 10f; // Max and min durations for disappear of target boards after getting shot
+    [SerializeField] private Bullet bullet; // Bullet instance to shoot
     
     private void Start() { 
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
@@ -23,6 +24,7 @@ public class Weapon : MonoBehaviour
     // This method shoots a ray from the camera to the forward direction
     private void Shoot() {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); // Creating a ray from the camera to the forward direction
+        bullet.ShootBullet();
         
         RaycastHit hitData; // Storing the hit data
         

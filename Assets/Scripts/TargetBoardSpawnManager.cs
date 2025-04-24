@@ -46,8 +46,8 @@ public class TargetBoardSpawnManager : MonoBehaviour
         yield return new WaitForSeconds(randomDurationForCreation); // Waiting for some time before creating the other target board
         StartCoroutine(SpawnTargetBoard()); // Continuing the creation loop
         
-        // TODO: Object Pooling for optimization
         // TODO: Set the optimal min max values for randomizations
+        // TODO: Object Pooling for optimization
         
     }
 }
