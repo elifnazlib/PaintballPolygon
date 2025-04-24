@@ -30,8 +30,6 @@ public class GameManager : MonoBehaviour
             case "Inner 5":
                 score += innerScore5;
                 break;
-            default:
-                break;
         }
 
         scoreText.text = score.ToString(); // Updating the score text on the screen

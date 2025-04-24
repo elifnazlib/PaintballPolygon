@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 // This script is used to control the movement of the target board.
@@ -6,6 +7,14 @@ public class TargetBoard : MonoBehaviour
     private bool areVariablesAssigned = false;  // Is used to prevent the synchronization problem in TargetBoardSpawnManager.cs (for end point and desired duration)
     private bool canUpdateScore = true;  // Is used to prevent the multiple score updates for the same target board
     private bool isShot = false; // Is used to prevent the movement of LERP after getting shot
+    private float timeToDisappearAfterLerp; // Time to wait after reaching the destination
+    private bool isDestroyProcessStarted = false; // Is used to prevent the multiple destroy calls for the same target board
+    
+    public float TimeToDisappearAfterLerp
+    {
+        get {return timeToDisappearAfterLerp; }
+        set {timeToDisappearAfterLerp = value; }
+    }
     
     public bool AreVariablesAssigned
     {
@@ -55,7 +64,18 @@ public class TargetBoard : MonoBehaviour
             float percentageComplete = elapsedTime / desiredDuration;
 
             transform.position = Vector3.Lerp(startPosition, endPointPosition, percentageComplete);
+            if (percentageComplete >= 1f && !isDestroyProcessStarted)
+            {
+                isDestroyProcessStarted = true;
+                StartCoroutine(Destroyer()); // Destroying the target board after reaching the end point
+            }
         }
+    }
+
+    IEnumerator Destroyer()
+    {
+        yield return new WaitForSeconds(timeToDisappearAfterLerp);
+        Destroy(gameObject); // Destroying the target board after waiting for some time
     }
 
     // TODO: Target boards shall move forward and back 

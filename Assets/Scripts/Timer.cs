@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -29,5 +27,6 @@ public class Timer : MonoBehaviour
     {
         isTimerEnded = true; // Set the timer as ended
         Debug.Log("Timer has ended!"); // Debugging
+        // TODO: Game Over Panel
     }
 }

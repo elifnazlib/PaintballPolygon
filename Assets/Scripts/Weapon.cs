@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 // This script is used to control the raycast of the weapon.
@@ -30,7 +28,7 @@ public class Weapon : MonoBehaviour
         
         if (Physics.Raycast(ray, out hitData)) // If the ray hits something
         {
-            GameObject hitGameObject = hitData.collider.gameObject;
+            GameObject hitGameObject = hitData.collider.gameObject; // TODO: Do we need arrays to detect all the objects?
             GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
             
             TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();

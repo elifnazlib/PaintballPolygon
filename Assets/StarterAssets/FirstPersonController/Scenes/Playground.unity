@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.029152155, g: 0.06444568, b: 0.12695068, a: 1}
+  m_IndirectSpecularColor: {r: 0.029152213, g: 0.064445764, b: 0.12695098, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -409,12 +409,14 @@ MonoBehaviour:
   - {fileID: 1550837330}
   - {fileID: 601421588}
   - {fileID: 460148492}
-  maxDurationForLerp: 10
+  maxDurationForLerp: 3
   minDurationForLerp: 1
   minWaitDurationForCreations: 1
-  maxWaitDurationForCreations: 6
+  maxWaitDurationForCreations: 3
   minScaleForInstantiation: 0.2
   maxScaleForInstantiation: 0.5
+  minDurationForDestroy: 0.25
+  maxDurationForDestroy: 1.25
 --- !u!114 &249471212
 MonoBehaviour:
   m_ObjectHideFlags: 0
