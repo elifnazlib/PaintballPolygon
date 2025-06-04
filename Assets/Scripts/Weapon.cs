@@ -10,6 +10,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Bullet bullet; // Bullet instance to shoot
     [SerializeField] private GameObject bulletHolePrefab; // Bullet hole prefab to instantiate when the ray hits something
     [SerializeField] private Animator paintballGunAnimator; // Paintball gun animator reference for recoil effect
+    [SerializeField] private AudioClip shootSound; // Sound to play when the player shoots
+    [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects
     
     private void Start() { 
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
@@ -88,5 +90,7 @@ public class Weapon : MonoBehaviour
     private void Recoil()
     {
         paintballGunAnimator.SetTrigger("RecoilTrigger"); // Triggering the recoil animation of the paintball gun
+        AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position); // Playing the shoot sound at the camera position
+        //AudioSource.PlayClipAtPoint(shootSound, muzzle.transform.position); // Playing the shoot sound at the camera position
     }
 }

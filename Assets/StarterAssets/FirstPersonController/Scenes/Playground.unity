@@ -503,6 +503,8 @@ MonoBehaviour:
   bullet: {fileID: 1359523081}
   bulletHolePrefab: {fileID: 3381336012349751418, guid: 0a601c1f27a0d1948b13204a6754dfe1, type: 3}
   paintballGunAnimator: {fileID: 1276870939}
+  shootSound: {fileID: 8300000, guid: 44e7a7895fb5d0d4c8dd7892d71081c7, type: 3}
+  muzzle: {fileID: 1359523078}
 --- !u!65 &254038359
 BoxCollider:
   m_ObjectHideFlags: 0
