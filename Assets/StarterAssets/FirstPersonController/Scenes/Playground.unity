@@ -407,6 +407,8 @@ MonoBehaviour:
   innerScore5: 10
   score: 0
   scoreText: {fileID: 1125741440}
+  floatSpeed: 3
+  fadeDuration: 1.5
 --- !u!4 &249471210
 Transform:
   m_ObjectHideFlags: 0
@@ -1610,6 +1612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c3b637ea9e1774c9e4ec8f486784cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paintballGunAnimator: {fileID: 0}
 --- !u!95 &1276870939
 Animator:
   serializedVersion: 5

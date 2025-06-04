@@ -54,19 +54,14 @@ public class Weapon : MonoBehaviour
                     float randomDurationForDisappear= UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
 
                     // Stopping scoring
-                    gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
+                    gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5]); // Updating the score according to the hit object
                     parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
                     parentTargetBoard.IsShot = true; // Preventing the movements on the ground
-
-                    // DEBUGGING
-                    // foreach (GameObject inner in listOfSiblings)
-                    // {
-                    //     inner.GetComponent<MeshRenderer>().materials[0].color = Color.red; // Changing the color of the inner circles
-                    // }
-                    //## DEBUGGING
                     
                     foreach (GameObject inner in listOfSiblings)
                     {
+                        if(inner == listOfSiblings[5]) continue; // Skipping the canvas object
+                        
                         // Fall down or tear apart
                         inner.GetComponent<MeshCollider>().convex = true; // Making the inner circles convex
                         Rigidbody rb = inner.AddComponent(typeof(Rigidbody)) as Rigidbody; // Adding a rigidbody to the inner circles
@@ -91,6 +86,6 @@ public class Weapon : MonoBehaviour
     {
         paintballGunAnimator.SetTrigger("RecoilTrigger"); // Triggering the recoil animation of the paintball gun
         AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position); // Playing the shoot sound at the camera position
-        //AudioSource.PlayClipAtPoint(shootSound, muzzle.transform.position); // Playing the shoot sound at the camera position
+        //AudioSource.PlayClipAtPoint(shootSound, muzzle.transform.position); // Playing the shoot sound at the muzzle position
     }
 }
