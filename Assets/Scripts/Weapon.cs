@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int forceMultiplier = 10; // Multiplier for the force applied to the inner circles
     [SerializeField] private float minDurationForDisappear = 5f, maxDurationForDisappear = 10f; // Max and min durations for disappear of target boards after getting shot
     [SerializeField] private Bullet bullet; // Bullet instance to shoot
+    [SerializeField] private GameObject bulletHolePrefab; // Bullet hole prefab to instantiate when the ray hits something
     
     private void Start() { 
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
@@ -35,42 +36,50 @@ public class Weapon : MonoBehaviour
             
             TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
             
-            if (hitGameObject.CompareTag("TargetBoard") && parentTargetBoard.CanUpdateScore)
+            if (hitGameObject.CompareTag("TargetBoard"))
             {
-                List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
-                foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
-                {
-                    listOfSiblings.Add(sibling.gameObject); // Adding the sibling to the list
-                }
-
-                float randomDurationForDisappear= UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
-
-                // Stopping scoring
-                gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
-                parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
-                parentTargetBoard.IsShot = true; // Preventing the movements on the ground
-
-                // DEBUGGING
-                // foreach (GameObject inner in listOfSiblings)
-                // {
-                //     inner.GetComponent<MeshRenderer>().materials[0].color = Color.red; // Changing the color of the inner circles
-                // }
-                //## DEBUGGING
+                GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform); // Instantiating the bullet hole prefab at the hit point with the normal rotation
                 
-                foreach (GameObject inner in listOfSiblings)
-                {
-                    // Fall down or tear apart
-                    inner.GetComponent<MeshCollider>().convex = true; // Making the inner circles convex
-                    Rigidbody rb = inner.AddComponent(typeof(Rigidbody)) as Rigidbody; // Adding a rigidbody to the inner circles
+                if(parentTargetBoard.CanUpdateScore){
+                    List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
+                    foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
+                    {
+                        listOfSiblings.Add(sibling.gameObject); // Adding the sibling to the list
+                    }
 
-                    rb.useGravity = true; // Applying gravity to the inner circles
-                    rb.AddForce(Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
-                    //## Fall down or tear apart
+                    float randomDurationForDisappear= UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
 
-                    Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
+                    // Stopping scoring
+                    gameManager.UpdateScore(hitGameObject.name); // Updating the score according to the hit object
+                    parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
+                    parentTargetBoard.IsShot = true; // Preventing the movements on the ground
+
+                    // DEBUGGING
+                    // foreach (GameObject inner in listOfSiblings)
+                    // {
+                    //     inner.GetComponent<MeshRenderer>().materials[0].color = Color.red; // Changing the color of the inner circles
+                    // }
+                    //## DEBUGGING
+                    
+                    foreach (GameObject inner in listOfSiblings)
+                    {
+                        // Fall down or tear apart
+                        inner.GetComponent<MeshCollider>().convex = true; // Making the inner circles convex
+                        Rigidbody rb = inner.AddComponent(typeof(Rigidbody)) as Rigidbody; // Adding a rigidbody to the inner circles
+
+                        rb.useGravity = true; // Applying gravity to the inner circles
+                        rb.AddForce(Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
+                        //## Fall down or tear apart
+
+                        Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
+                    }
                 }
             }
-            
+            else
+            {
+                GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
+                // Moving the bullet hole slightly forward to avoid z-fighting
+            }
         }
     }
 }
