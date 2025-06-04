@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float minDurationForDisappear = 5f, maxDurationForDisappear = 10f; // Max and min durations for disappear of target boards after getting shot
     [SerializeField] private Bullet bullet; // Bullet instance to shoot
     [SerializeField] private GameObject bulletHolePrefab; // Bullet hole prefab to instantiate when the ray hits something
+    [SerializeField] private Animator paintballGunAnimator; // Paintball gun animator reference for recoil effect
     
     private void Start() { 
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
@@ -17,6 +18,7 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         if(Input.GetButtonDown("Fire1")) { // If the player presses the left mouse button
+            Recoil();
             Shoot(); // Shoot the ray
         }
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 10, Color.red);  // Debugging
@@ -81,5 +83,10 @@ public class Weapon : MonoBehaviour
                 // Moving the bullet hole slightly forward to avoid z-fighting
             }
         }
+    }
+
+    private void Recoil()
+    {
+        paintballGunAnimator.SetTrigger("RecoilTrigger"); // Triggering the recoil animation of the paintball gun
     }
 }
