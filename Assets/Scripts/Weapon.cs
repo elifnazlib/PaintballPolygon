@@ -79,6 +79,8 @@ public class Weapon : MonoBehaviour
                 GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
                 // Moving the bullet hole slightly forward to avoid z-fighting
             }
+            
+            bullet.DestroyYourself();
         }
     }
 

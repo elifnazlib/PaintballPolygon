@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         {
             float t = elapsed / fadeDuration;
 
-            text.transform.position = startPos + moveDirection * floatSpeed * t;
+            text.transform.position = startPos + moveDirection * floatSpeed * t; // TODO: Targetboard may destroy itself before lerp is done
             canvasGroup.alpha = 1f - t;
 
             elapsed += Time.deltaTime;

@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     private Vector3 bulletDirection; // The vector3 of the bullet
     [SerializeField] private int bulletVelocity = 50; // The velocity of the bullet
     [SerializeField] private int distanceThreshold = 10; // TODO: Find a sweet spot for this value
+
     
     public void ShootBullet()
     {
@@ -21,6 +22,7 @@ public class Bullet : MonoBehaviour
         bulletRb = instantiatedBullet.GetComponent<Rigidbody>(); // Get the Rigidbody component of the bullet prefab
     }
 
+
     private void FixedUpdate()
     {
         if (shootBullet)
@@ -30,7 +32,11 @@ public class Bullet : MonoBehaviour
         }
     }
     
+    public void DestroyYourself()
+    {
+        Destroy(instantiatedBullet); // Destroy the instantiated bullet
+        shootBullet = false; // Reset the shootBullet flag
+    }
+    
     // TODO: Set target position to the hit point if the ray hits something
-    // TODO: Destroy yourself after hitting anything
-    // TODO: Destroy yourself if you do not hit target board after some time
 }
