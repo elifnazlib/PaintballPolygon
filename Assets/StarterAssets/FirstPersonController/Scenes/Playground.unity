@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 619e305f5165a9946b7f72464e44ca4a, type: 3}
   m_Sun: {fileID: 2114283754330233425}
-  m_IndirectSpecularColor: {r: 0.029152213, g: 0.064445764, b: 0.12695098, a: 1}
+  m_IndirectSpecularColor: {r: 0.029152155, g: 0.06444568, b: 0.12695068, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &17059672
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1977938118}
+    m_Modifications:
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.9734
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8485896362777474286, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+      propertyPath: m_Name
+      value: Particle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cf720068052953f4ebab22348a7cf817, type: 3}
 --- !u!1 &31232654
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,6 +564,8 @@ MonoBehaviour:
   paintballGunAnimator: {fileID: 1276870939}
   shootSound: {fileID: 8300000, guid: 44e7a7895fb5d0d4c8dd7892d71081c7, type: 3}
   muzzle: {fileID: 1359523078}
+  splashSprite: {fileID: 8273086947905057289, guid: aa61f759d437f06439a381cc00b6faa1, type: 3}
+  splashParticleSystem: {fileID: 450844796}
 --- !u!65 &254038359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -624,6 +683,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 32679735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &450844796 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3224509736973129208, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+  m_PrefabInstance: {fileID: 17059672}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &450844797 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6594412355603927615, guid: cf720068052953f4ebab22348a7cf817, type: 3}
+  m_PrefabInstance: {fileID: 17059672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &460148492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,7 +1681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c3b637ea9e1774c9e4ec8f486784cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paintballGunAnimator: {fileID: 0}
 --- !u!95 &1276870939
 Animator:
   serializedVersion: 5
@@ -2137,6 +2205,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 450844797}
     - targetCorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
       insertIndex: -1
       addedObject: {fileID: 254038362}

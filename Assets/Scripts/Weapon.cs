@@ -11,9 +11,12 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject bulletHolePrefab; // Bullet hole prefab to instantiate when the ray hits something
     [SerializeField] private Animator paintballGunAnimator; // Paintball gun animator reference for recoil effect
     [SerializeField] private AudioClip shootSound; // Sound to play when the player shoots
-    [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects
+    [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects                         
+    [SerializeField] private GameObject splashSprite;
+    [SerializeField] private ParticleSystem splashParticleSystem;
     
-    private void Start() { 
+    private void Start()
+    {
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
     }
     
@@ -30,6 +33,7 @@ public class Weapon : MonoBehaviour
     private void Shoot() {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); // Creating a ray from the camera to the forward direction
         bullet.ShootBullet();
+        splashParticleSystem.Play();
         
         RaycastHit hitData; // Storing the hit data
         
@@ -39,29 +43,37 @@ public class Weapon : MonoBehaviour
             GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
             
             TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
+
+            // GameObject splashPS = Instantiate(splashParticleSystemPrefab, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(-hitData.normal));
             
             if (hitGameObject.CompareTag("TargetBoard"))
             {
+                /*
+                GameObject splash = Instantiate(splashSprite, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform);
+                splash.transform.localScale *= 0.1f;
+                */
+
                 GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform); // Instantiating the bullet hole prefab at the hit point with the normal rotation
-                
-                if(parentTargetBoard.CanUpdateScore){
+
+                if (parentTargetBoard.CanUpdateScore)
+                {
                     List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
                     foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
                     {
                         listOfSiblings.Add(sibling.gameObject); // Adding the sibling to the list
                     }
 
-                    float randomDurationForDisappear= UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
+                    float randomDurationForDisappear = UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
 
                     // Stopping scoring
                     gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5]); // Updating the score according to the hit object
                     parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
                     parentTargetBoard.IsShot = true; // Preventing the movements on the ground
-                    
+
                     foreach (GameObject inner in listOfSiblings)
                     {
-                        if(inner == listOfSiblings[5]) continue; // Skipping the canvas object
-                        
+                        if (inner == listOfSiblings[5]) continue; // Skipping the canvas object
+
                         // Fall down or tear apart
                         inner.GetComponent<MeshCollider>().convex = true; // Making the inner circles convex
                         Rigidbody rb = inner.AddComponent(typeof(Rigidbody)) as Rigidbody; // Adding a rigidbody to the inner circles
@@ -76,6 +88,11 @@ public class Weapon : MonoBehaviour
             }
             else
             {
+                /*
+                GameObject splash = Instantiate(splashSprite, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(hitData.normal));
+                splash.transform.localScale *= 0.1f;
+                */
+
                 GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
                 // Moving the bullet hole slightly forward to avoid z-fighting
             }
