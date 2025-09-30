@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Animator paintballGunAnimator; // Paintball gun animator reference for recoil effect
     [SerializeField] private AudioClip shootSound; // Sound to play when the player shoots
     [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects                         
-    [SerializeField] private GameObject splashSprite;
+    // [SerializeField] private GameObject splashSprite;
     [SerializeField] private ParticleSystem splashParticleSystem;
     
     private void Start()
@@ -82,8 +82,9 @@ public class Weapon : MonoBehaviour
                         rb.AddForce(Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
                         //## Fall down or tear apart
 
-                        Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
+                        // Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
                     }
+                    Destroy(parentOfHitGameObject, randomDurationForDisappear); // Destroys the target board game object after waiting "randomDurationForDisappear"
                 }
             }
             else
