@@ -75,7 +75,8 @@ public class TargetBoard : MonoBehaviour
     IEnumerator Destroyer()
     {
         yield return new WaitForSeconds(timeToDisappearAfterLerp);
-        Destroy(gameObject); // Destroying the target board after waiting for some time
+        if(!isShot)
+            Destroy(gameObject); // Destroying the target board after waiting for some time
     }
 
     // TODO: Target boards shall move forward and back 
