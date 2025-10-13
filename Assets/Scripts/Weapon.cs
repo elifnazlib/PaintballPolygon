@@ -40,9 +40,9 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(ray, out hitData)) // If the ray hits something
         {
             GameObject hitGameObject = hitData.collider.gameObject; // TODO: Do we need arrays to detect all the objects?
-            GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
+            // GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
             
-            TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
+            // TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
 
             // GameObject splashPS = Instantiate(splashParticleSystemPrefab, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(-hitData.normal));
             
@@ -52,6 +52,10 @@ public class Weapon : MonoBehaviour
                 GameObject splash = Instantiate(splashSprite, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform);
                 splash.transform.localScale *= 0.1f;
                 */
+
+                GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
+            
+                TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
 
                 GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform); // Instantiating the bullet hole prefab at the hit point with the normal rotation
 
@@ -79,7 +83,7 @@ public class Weapon : MonoBehaviour
                         Rigidbody rb = inner.AddComponent(typeof(Rigidbody)) as Rigidbody; // Adding a rigidbody to the inner circles
 
                         rb.useGravity = true; // Applying gravity to the inner circles
-                        rb.AddForce(Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
+                        rb.AddForce(-Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
                         //## Fall down or tear apart
 
                         // Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
