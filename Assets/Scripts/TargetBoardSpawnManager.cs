@@ -41,7 +41,7 @@ public class TargetBoardSpawnManager : MonoBehaviour
         createdTargetBoardsTB.TimeToDisappearAfterLerp = randomDurationForDestroy; // Assigning the random duration for destroy of the target board after getting shot
         createdTargetBoardsTB.AreVariablesAssigned = true; // To prevent the case "TargetBoard.cs can reach the Lerp method before the created target board's end point position is assigned"
 
-        Debug.Log($"Waiting for {randomDurationForCreation} seconds."); // Debugging
+        // Debug.Log($"Waiting for {randomDurationForCreation} seconds."); // Debugging
         
         yield return new WaitForSeconds(randomDurationForCreation); // Waiting for some time before creating the other target board
         StartCoroutine(SpawnTargetBoard()); // Continuing the creation loop
