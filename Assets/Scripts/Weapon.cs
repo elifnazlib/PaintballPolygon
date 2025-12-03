@@ -20,6 +20,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float comboTimer = 0f, comboResetTime = 5f;
     [SerializeField] private bool comboActive = false;
 
+    [SerializeField] private GameObject gameOverbulletHolePrefab; // Bullet hole prefab to show overall accuracy at the end of the game
+    [SerializeField] private GameObject gameOverTargetBoard; // Target board to show overall accuracy at the end of the game
+    [SerializeField] private float y_offset = 0.27f;
 
     private void Start()
     {
@@ -79,11 +82,21 @@ public class Weapon : MonoBehaviour
 
                 if (parentTargetBoard.CanUpdateScore)
                 {
-
+                    Vector3 localHitPoint = parentTargetBoard.transform.InverseTransformPoint(hitData.point);
+                    localHitPoint.y = y_offset;
+                    Vector3 gameOverHitPoint = gameOverTargetBoard.transform.TransformPoint(localHitPoint);
+                    
+                    Instantiate(gameOverbulletHolePrefab,
+                        gameOverHitPoint, 
+                        Quaternion.LookRotation(hitData.normal), 
+                        gameOverTargetBoard.transform);
+                    
                     // If the ray hits Target Board
                     comboCount++;
                     comboTimer = comboResetTime;
                     comboActive = true;
+                    
+                    // TODO: Get hit point on current target board and instantiate the bullet hole prefab on the game over target board
 
                     List<GameObject> listOfSiblings = new List<GameObject>(); // List of siblings of the parent of the hit object
                     foreach (Transform sibling in parentOfHitGameObject.transform) // Getting the siblings of the parent of the hit object
