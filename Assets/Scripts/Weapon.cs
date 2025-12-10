@@ -127,6 +127,11 @@ public class Weapon : MonoBehaviour
                     }
                     Destroy(parentOfHitGameObject, randomDurationForDisappear); // Destroys the target board game object after waiting "randomDurationForDisappear"
                 }
+                else
+                {
+                    // If the target board has already been shot
+                    ResetCombo();
+                }
             }
             else
             {
