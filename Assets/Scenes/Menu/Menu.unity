@@ -638,7 +638,7 @@ GameObject:
   - component: {fileID: 626614581}
   - component: {fileID: 626614580}
   m_Layer: 0
-  m_Name: Scene Manager
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -653,9 +653,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 626614579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 679137384a75abf4585f7a071d910559, type: 3}
+  m_Script: {fileID: 11500000, guid: 0da81455ccf33014ca1b0dc7a99ee14d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  innerScore1: 50
+  innerScore2: 40
+  innerScore3: 30
+  innerScore4: 20
+  innerScore5: 10
+  score: 0
+  scoreText: {fileID: 0}
+  floatSpeed: 3
+  fadeDuration: 1.5
+  pauseMenuPanel: {fileID: 0}
+  firstPersonControllerScript: {fileID: 0}
+  playerInputScript: {fileID: 0}
+  weaponScript: {fileID: 0}
+  sensitivitySlider: {fileID: 0}
+  settingsPanel: {fileID: 0}
+  sensitivityValueText: {fileID: 0}
 --- !u!4 &626614581
 Transform:
   m_ObjectHideFlags: 0

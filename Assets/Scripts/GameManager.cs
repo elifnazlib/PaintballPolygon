@@ -1,9 +1,11 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using System;
 using System.Collections;
+using StarterAssets;
+using UnityEngine.InputSystem;
 using Random = System.Random;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 // This script is used to control the game logic.
 public class GameManager : MonoBehaviour
@@ -11,12 +13,64 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int innerScore1, innerScore2, innerScore3, innerScore4, innerScore5; // Scores for inner circles
 
-    [SerializeField] private int score = 0; // Total score of the player
+    [SerializeField] private int score = 0;             // Total score of the player
     [SerializeField] private TextMeshProUGUI scoreText; // TextMeshProUGUI instance to show the score on the screen
     
     public float floatSpeed = 20f;
     public float fadeDuration = 1.5f;
-    private Vector3 moveDirection = Vector3.up;
+    private Vector3 _moveDirection = Vector3.up;
+    
+    private string _activeSceneName;
+
+    [Header("Pause Menu")]
+    [SerializeField] private GameObject pauseMenuPanel;          // Pause menu panel to enable/disable
+    
+    [Header ("Sensitivity Settings")]
+    [SerializeField] private FirstPersonController firstPersonControllerScript; // FirstPersonController instance to set the sensitivity
+    [SerializeField] private PlayerInput playerInput;                           // PlayerInput instance to enable/disable input actions
+    [SerializeField] private Weapon weaponScript;                               // Weapon instance to enable/disable shooting
+    [SerializeField] private Slider sensitivitySlider;                          // Slider instance to get the sensitivity value
+    [SerializeField] private GameObject settingsPanel;                          // Settings panel to enable/disable
+    [SerializeField] private TextMeshProUGUI sensitivityValueText;              // TextMeshProUGUI instance to show the sensitivity value
+    
+    private void Start()
+    {
+        _activeSceneName = SceneManager.GetActiveScene().name;
+    }
+
+    private void Update()
+    {
+        if (_activeSceneName == "Playground3" && Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!pauseMenuPanel.activeSelf && !settingsPanel.activeSelf)
+            {
+                pauseMenuPanel.SetActive(true);
+                
+                weaponScript.enabled = false;
+                playerInput.enabled = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Time.timeScale = 0f; // Pause the game
+            }
+            
+            else if (pauseMenuPanel.activeSelf)
+            {
+                pauseMenuPanel.SetActive(false);
+                
+                weaponScript.enabled = true;
+                playerInput.enabled = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                Time.timeScale = 1f; // Resume the game
+            }
+            
+            if (settingsPanel.activeSelf)
+            {
+                settingsPanel.SetActive(false);
+                pauseMenuPanel.SetActive(true);
+            }
+        }
+    }
 
     public void UpdateScore(string raycastedGameObject, GameObject targetBoardCanvas)
     {
@@ -85,7 +139,7 @@ public class GameManager : MonoBehaviour
         {
             float t = elapsed / fadeDuration;
 
-            text.transform.position = startPos + moveDirection * floatSpeed * t; // TODO: Targetboard may destroy itself before lerp is done
+            text.transform.position = startPos + _moveDirection * floatSpeed * t; // TODO: Targetboard may destroy itself before lerp is done
             canvasGroup.alpha = 1f - t;
 
             elapsed += Time.deltaTime;
@@ -94,6 +148,29 @@ public class GameManager : MonoBehaviour
 
         canvasGroup.alpha = 0f;
         text.gameObject.SetActive(false);
+    }
+    
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Playground3");
+    }
+    
+    public void OpenSettings()
+    {
+        settingsPanel.SetActive(true);
+        pauseMenuPanel.SetActive(false);
+    }
+    
+    public void ResetMouseSensitivity()
+    {
+        sensitivitySlider.value = 1.0f;
+        firstPersonControllerScript.RotationSpeed = 1.0f;
+    }
+
+    public void OnSensitivityChanged()
+    {
+        sensitivityValueText.text = sensitivitySlider.value.ToString("F2");
+        firstPersonControllerScript.RotationSpeed = sensitivitySlider.value;
     }
     
 }
