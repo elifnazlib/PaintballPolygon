@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using StarterAssets;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Random = System.Random;
 using UnityEngine.SceneManagement;
@@ -33,7 +34,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;                          // Slider instance to get the sensitivity value
     [SerializeField] private GameObject settingsPanel;                          // Settings panel to enable/disable
     [SerializeField] private TextMeshProUGUI sensitivityValueText;              // TextMeshProUGUI instance to show the sensitivity value
-
+    
+    [Header ("Crosshair")]
+    [SerializeField] private Image crosshairImage;                              // Crosshair image to change
+    
     private void Awake()
     {
         _activeSceneName = SceneManager.GetActiveScene().name;
@@ -41,12 +45,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // Setting the mouse sensitivity that the player set before
+        // Setting the mouse sensitivity and crosshair that the player set before
         if (_activeSceneName == "Playground3")
         {
             sensitivitySlider.value = Settings.Instance.mouseSensitivity;
             sensitivityValueText.text = sensitivitySlider.value.ToString("F2");
             firstPersonControllerScript.RotationSpeed = sensitivitySlider.value;
+            
+            crosshairImage.sprite = Settings.Instance.crosshairImage.sprite;
         }
     }
 
@@ -192,6 +198,8 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Settings.Instance.mouseSensitivity = sensitivitySlider.value;
+        Settings.Instance.crosshairImage.sprite = crosshairImage.sprite;
+        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;
@@ -201,6 +209,8 @@ public class GameManager : MonoBehaviour
     public void ExitToMainMenu()
     {
         Settings.Instance.mouseSensitivity = sensitivitySlider.value;
+        Settings.Instance.crosshairImage.sprite = crosshairImage.sprite;
+        
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
     }
@@ -215,6 +225,13 @@ public class GameManager : MonoBehaviour
     {
         sensitivityValueText.text = sensitivitySlider.value.ToString("F2");
         firstPersonControllerScript.RotationSpeed = sensitivitySlider.value;
+    }
+    
+    public void ChangeCrosshairImage()
+    {
+        var button = EventSystem.current.currentSelectedGameObject; // clicked button
+        var icon = button.transform.Find("Icon").GetComponent<Image>();
+        crosshairImage.sprite = icon.sprite;
     }
     
 }
