@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using System.Collections;
@@ -32,42 +33,38 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider sensitivitySlider;                          // Slider instance to get the sensitivity value
     [SerializeField] private GameObject settingsPanel;                          // Settings panel to enable/disable
     [SerializeField] private TextMeshProUGUI sensitivityValueText;              // TextMeshProUGUI instance to show the sensitivity value
-    
-    private void Start()
+
+    private void Awake()
     {
         _activeSceneName = SceneManager.GetActiveScene().name;
     }
 
+    private void Start()
+    {
+        // Setting the mouse sensitivity that the player set before
+        if (_activeSceneName == "Playground3")
+        {
+            sensitivitySlider.value = Settings.Instance.mouseSensitivity;
+            sensitivityValueText.text = sensitivitySlider.value.ToString("F2");
+            firstPersonControllerScript.RotationSpeed = sensitivitySlider.value;
+        }
+    }
+
     private void Update()
     {
-        if (_activeSceneName == "Playground3" && Input.GetKeyDown(KeyCode.Escape))
+        // Pause menu functionality
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            if (!pauseMenuPanel.activeSelf && !settingsPanel.activeSelf)
+            if (_activeSceneName == "Playground3")
             {
-                pauseMenuPanel.SetActive(true);
-                
-                weaponScript.enabled = false;
-                playerInput.enabled = false;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                Time.timeScale = 0f; // Pause the game
-            }
-            
-            else if (pauseMenuPanel.activeSelf)
-            {
-                pauseMenuPanel.SetActive(false);
-                
-                weaponScript.enabled = true;
-                playerInput.enabled = true;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                Time.timeScale = 1f; // Resume the game
-            }
-            
-            if (settingsPanel.activeSelf)
-            {
-                settingsPanel.SetActive(false);
-                pauseMenuPanel.SetActive(true);
+                if (!pauseMenuPanel.activeSelf && !settingsPanel.activeSelf)
+                {
+                    PauseOptions();
+                }
+                else
+                {
+                    ResumeOptions();
+                }
             }
         }
     }
@@ -152,6 +149,8 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         SceneManager.LoadScene("Playground3");
     }
     
@@ -159,6 +158,51 @@ public class GameManager : MonoBehaviour
     {
         settingsPanel.SetActive(true);
         pauseMenuPanel.SetActive(false);
+    }
+    
+    public void BackToPauseMenu()
+    {
+        settingsPanel.SetActive(false);
+        pauseMenuPanel.SetActive(true);
+    }
+    
+    public void ResumeOptions()
+    {
+        pauseMenuPanel.SetActive(false);
+        settingsPanel.SetActive(false);
+        
+        weaponScript.enabled = true;
+        playerInput.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f; // Resume the game
+    }
+    
+    public void PauseOptions()
+    {
+        pauseMenuPanel.SetActive(true);
+        
+        weaponScript.enabled = false;
+        playerInput.enabled = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0f; // Pause the game
+    }
+    
+    public void RestartGame()
+    {
+        Settings.Instance.mouseSensitivity = sensitivitySlider.value;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Playground3");
+    }
+    
+    public void ExitToMainMenu()
+    {
+        Settings.Instance.mouseSensitivity = sensitivitySlider.value;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
     
     public void ResetMouseSensitivity()
