@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using System.Collections;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 // This script is used to control the raycast of the weapon.
 public class Weapon : MonoBehaviour
@@ -16,13 +16,21 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects                         
     // [SerializeField] private GameObject splashSprite;
     [SerializeField] private ParticleSystem splashParticleSystem;
-    [SerializeField] private int comboCount = 0;
-    [SerializeField] private float comboTimer = 0f, comboResetTime = 5f;
-    [SerializeField] private bool comboActive = false;
-
-    [SerializeField] private GameObject gameOverbulletHolePrefab; // Bullet hole prefab to show overall accuracy at the end of the game
+    
+    [Header("Game Over Settings")]
+    [SerializeField] private GameObject gameOverBulletHolePrefab; // Bullet hole prefab to show overall accuracy at the end of the game
     [SerializeField] private GameObject gameOverTargetBoard; // Target board to show overall accuracy at the end of the game
-    [SerializeField] private float y_offset = 0.27f;
+    [SerializeField] private float yOffset = 0.27f;
+    
+    [Header("Combo Settings")]
+    [SerializeField] private int comboCount = 0;
+    [SerializeField] private int maxComboCount = 5;
+    [SerializeField] private float comboTimer = 0f;
+    [SerializeField] private bool comboActive = false;
+    [SerializeField] private float comboIncreaseRate = 0.5f;
+    [SerializeField] private float comboDecayRate = 0.1f;
+    [SerializeField] private Slider comboSlider;
+    [SerializeField] private TextMeshProUGUI comboText;
 
     private void Start()
     {
@@ -33,15 +41,26 @@ public class Weapon : MonoBehaviour
     {
         if (comboActive)
         {
-            comboTimer -= Time.deltaTime;
+            if (comboTimer > maxComboCount)
+            {
+                comboTimer = maxComboCount;
+            }
+            
+            comboTimer -= Time.deltaTime * comboDecayRate;
+            comboCount = (int) (comboTimer + 1);  // Ekranda x şeklinde gösterim için
+
+            comboSlider.value = comboTimer + 1 - comboCount;
+            comboText.text = $"x{comboCount}";
+            
             if (comboTimer <= 0)
             {
                 ResetCombo();
             }
         }
-
+        
+        // If the player presses the left mouse button
         if (Input.GetButtonDown("Fire1"))
-        { // If the player presses the left mouse button
+        { 
             Recoil();
             Shoot(); // Shoot the ray
         }
@@ -83,17 +102,21 @@ public class Weapon : MonoBehaviour
                 if (parentTargetBoard.CanUpdateScore)
                 {
                     Vector3 localHitPoint = parentTargetBoard.transform.InverseTransformPoint(hitData.point);
-                    localHitPoint.y = y_offset;
+                    localHitPoint.y = yOffset;
                     Vector3 gameOverHitPoint = gameOverTargetBoard.transform.TransformPoint(localHitPoint);
                     
-                    Instantiate(gameOverbulletHolePrefab,
+                    Instantiate(gameOverBulletHolePrefab,
                         gameOverHitPoint, 
                         Quaternion.LookRotation(hitData.normal), 
                         gameOverTargetBoard.transform);
                     
+                    
                     // If the ray hits Target Board
-                    comboCount++;
-                    comboTimer = comboResetTime;
+                    
+                    comboTimer += comboIncreaseRate;
+                    comboCount = (int) (comboTimer + 1); // 2.3
+                    
+                    Debug.Log("Combo x" + comboCount);
                     comboActive = true;
                     
                     // TODO: Get hit point on current target board and instantiate the bullet hole prefab on the game over target board
@@ -107,7 +130,7 @@ public class Weapon : MonoBehaviour
                     float randomDurationForDisappear = UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
 
                     // Stopping scoring
-                    gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5]); // Updating the score according to the hit object
+                    gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5], comboCount); // Updating the score according to the hit object
                     parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
                     parentTargetBoard.IsShot = true; // Preventing the movements on the ground
 
@@ -139,9 +162,9 @@ public class Weapon : MonoBehaviour
                 GameObject splash = Instantiate(splashSprite, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(hitData.normal));
                 splash.transform.localScale *= 0.1f;
                 */
-
-                GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
+                
                 // Moving the bullet hole slightly forward to avoid z-fighting
+                GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
 
                 // If the ray hits something other than Target Board
                 ResetCombo();
@@ -166,12 +189,15 @@ public class Weapon : MonoBehaviour
     // This method resets combo when the player shoots something different from target board or shoots nothing
     void ResetCombo()
     {
-        if (comboActive && comboCount > 0)
+        if (comboActive)
         {
             Debug.Log($"Combo ended at x{comboCount}");
         }
         comboCount = 0;
         comboActive = false;
-        comboTimer = 0;
+        comboTimer = 0f;
+        
+        comboSlider.value = 0f;
+        comboText.text = "x1";
     }
 }

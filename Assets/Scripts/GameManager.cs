@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdateScore(string raycastedGameObject, GameObject targetBoardCanvas)
+    public void UpdateScore(string raycastedGameObject, GameObject targetBoardCanvas, int comboMultiplier)
     {
         int tempScore = 0; // Temporary score variable to hold the score before updating the UI
         Color tempColor = Color.white; // Temporary color variable for the floating text
@@ -85,27 +85,27 @@ public class GameManager : MonoBehaviour
             case "Inner 1":
                 tempScore = innerScore1;
                 tempColor = Color.yellow; // Setting color for Inner 1
-                score += innerScore1;
+                score += innerScore1  * comboMultiplier;
                 break;
             case "Inner 2":
                 tempScore = innerScore2;
                 tempColor = Color.red; // Setting color for Inner 2
-                score += innerScore2;
+                score += innerScore2  * comboMultiplier;
                 break;
             case "Inner 3":
                 tempScore = innerScore3;
                 tempColor = new Color(0, 201, 255, 255);
-                score += innerScore3;
+                score += innerScore3  * comboMultiplier;
                 break;
             case "Inner 4":
                 tempScore = innerScore4;
                 tempColor = Color.black; // Setting color for Inner 4
-                score += innerScore4;
+                score += innerScore4  * comboMultiplier;
                 break;
             case "Inner 5":
                 tempScore = innerScore5;
                 tempColor = Color.white; // Setting color for Inner 5
-                score += innerScore5;
+                score += innerScore5 * comboMultiplier;
                 break;
         }
         
