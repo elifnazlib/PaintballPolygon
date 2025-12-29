@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 using Random = System.Random;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 // This script is used to control the game logic.
 public class GameManager : MonoBehaviour
@@ -131,6 +132,9 @@ public class GameManager : MonoBehaviour
             comboText.transform.SetParent(floatingText.transform, false);
             comboText.transform.position = new Vector3(floatingText.transform.position.x, floatingText.transform.position.y + 0.35f, floatingText.transform.position.z);
             comboText.text = $"x{comboMultiplier}";
+            comboText.transform.DOPunchPosition(-1 * Vector3.forward, 0.1f, 4, 1f, false);
+            comboText.transform.DOScale(comboText.transform.localScale * 2, fadeDuration);
+            // comboText.transform.DOShakePosition(fadeDuration, 0.1f, 5, 0f, false, true, ShakeRandomnessMode.Harmonic);
         }
         
         StartCoroutine(FadeAndMove(floatingText, floatingText.transform.position));
