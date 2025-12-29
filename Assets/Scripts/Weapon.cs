@@ -129,6 +129,11 @@ public class Weapon : MonoBehaviour
 
                     float randomDurationForDisappear = UnityEngine.Random.Range(minDurationForDisappear, maxDurationForDisappear); // Random duration for creation (Used UnityEngine.Random.Range() to generate random floats)
 
+                    if (comboCount > maxComboCount)
+                    {
+                        comboCount = maxComboCount;
+                    }
+                    
                     // Stopping scoring
                     gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5], comboCount); // Updating the score according to the hit object
                     parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board

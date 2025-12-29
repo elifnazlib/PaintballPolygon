@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         
         Random random = new Random(); // Creating a random instance to generate random colors
         TextMeshProUGUI floatingText = null;
+        TextMeshProUGUI comboText = null;
         
         if (random.Next(0, 2) == 0)
         {
@@ -123,6 +124,14 @@ public class GameManager : MonoBehaviour
         
         floatingText.color = tempColor; // Changing the color of the floating text
         floatingText.text = $"+{tempScore}"; // Setting the text of the floating text
+
+        if (comboMultiplier > 1)
+        {
+            comboText = targetBoardCanvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+            comboText.transform.SetParent(floatingText.transform, false);
+            comboText.transform.position = new Vector3(floatingText.transform.position.x, floatingText.transform.position.y + 0.35f, floatingText.transform.position.z);
+            comboText.text = $"x{comboMultiplier}";
+        }
         
         StartCoroutine(FadeAndMove(floatingText, floatingText.transform.position));
         
