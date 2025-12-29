@@ -171,8 +171,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
+  m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -305,8 +305,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
+  m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -439,8 +439,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
+  m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -544,15 +544,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0f43d588c12c3f54db60ca9c6ce4282a, type: 2}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2589165
+      value: 0.4107598
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2589165
+      value: 0.4107598
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.2589165
+      value: 0.4107598
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 1f86f9028950b6241a67fe397d788b47, type: 3}
       propertyPath: m_LocalPosition.x

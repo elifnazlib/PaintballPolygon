@@ -667,11 +667,12 @@ MonoBehaviour:
   fadeDuration: 1.5
   pauseMenuPanel: {fileID: 0}
   firstPersonControllerScript: {fileID: 0}
-  playerInputScript: {fileID: 0}
+  playerInput: {fileID: 0}
   weaponScript: {fileID: 0}
   sensitivitySlider: {fileID: 0}
   settingsPanel: {fileID: 0}
   sensitivityValueText: {fileID: 0}
+  crosshairImage: {fileID: 0}
 --- !u!4 &626614581
 Transform:
   m_ObjectHideFlags: 0
@@ -1107,8 +1108,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
+  m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1132,8 +1133,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
