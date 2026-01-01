@@ -13,8 +13,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject bulletHolePrefab; // Bullet hole prefab to instantiate when the ray hits something
     [SerializeField] private Animator paintballGunAnimator; // Paintball gun animator reference for recoil effect
     [SerializeField] private AudioClip shootSound; // Sound to play when the player shoots
-    [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects                         
-    // [SerializeField] private GameObject splashSprite;
+    [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects
     [SerializeField] private ParticleSystem splashParticleSystem;
     
     [Header("Game Over Settings")]
@@ -31,6 +30,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float comboDecayRate = 0.1f;
     [SerializeField] private Slider comboSlider;
     [SerializeField] private TextMeshProUGUI comboText;
+    private Color comboColor;
 
     private void Start()
     {
@@ -46,11 +46,10 @@ public class Weapon : MonoBehaviour
                 comboTimer = maxComboCount;
             }
             
-            comboTimer -= Time.deltaTime * comboDecayRate;
             comboCount = (int) (comboTimer + 1);  // Ekranda x şeklinde gösterim için
-
-            comboSlider.value = comboTimer + 1 - comboCount;
             comboText.text = $"x{comboCount}";
+            comboSlider.value = comboTimer + 1 - comboCount;
+            comboTimer -= Time.deltaTime * comboDecayRate;
             
             if (comboTimer <= 0)
             {
@@ -72,31 +71,18 @@ public class Weapon : MonoBehaviour
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward); // Creating a ray from the camera to the forward direction
         bullet.ShootBullet();
-        splashParticleSystem.Play();
+        // splashParticleSystem.Play();
 
         RaycastHit hitData; // Storing the hit data
 
         if (Physics.Raycast(ray, out hitData)) // If the ray hits something
         {
             GameObject hitGameObject = hitData.collider.gameObject; // TODO: Do we need arrays to detect all the objects?
-            
-            // GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
-
-            // TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
-
-            // GameObject splashPS = Instantiate(splashParticleSystemPrefab, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(-hitData.normal));
 
             if (hitGameObject.CompareTag("TargetBoard"))
             {
-                /*
-                GameObject splash = Instantiate(splashSprite, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform);
-                splash.transform.localScale *= 0.1f;
-                */
-
                 GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
-
                 TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
-
                 GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform); // Instantiating the bullet hole prefab at the hit point with the normal rotation
 
                 if (parentTargetBoard.CanUpdateScore)
@@ -114,10 +100,8 @@ public class Weapon : MonoBehaviour
                     // If the ray hits Target Board
                     
                     comboTimer += comboIncreaseRate;
-                    comboCount = (int) (comboTimer + 1); // 2.3
-                    
-                    Debug.Log("Combo x" + comboCount);
                     comboActive = true;
+                    Debug.Log("Combo x" + comboCount);
                     
                     // TODO: Get hit point on current target board and instantiate the bullet hole prefab on the game over target board
 
@@ -149,10 +133,8 @@ public class Weapon : MonoBehaviour
 
                         rb.useGravity = true; // Applying gravity to the inner circles
                         rb.AddForce(-Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
-                        //## Fall down or tear apart
-
-                        // Destroy(inner, randomDurationForDisappear); // Destroys the inners after waiting "randomDurationForDisappear"
                     }
+                    
                     Destroy(parentOfHitGameObject, randomDurationForDisappear); // Destroys the target board game object after waiting "randomDurationForDisappear"
                 }
                 else
@@ -163,11 +145,6 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                /*
-                GameObject splash = Instantiate(splashSprite, hitData.point + hitData.normal * 0.01f, Quaternion.LookRotation(hitData.normal));
-                splash.transform.localScale *= 0.1f;
-                */
-                
                 // Moving the bullet hole slightly forward to avoid z-fighting
                 GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
 

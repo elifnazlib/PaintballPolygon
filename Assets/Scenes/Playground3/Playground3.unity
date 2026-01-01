@@ -6918,6 +6918,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 2115226578}
   sensitivityValueText: {fileID: 339223927}
   crosshairImage: {fileID: 1950602854}
+  referencedComboText: {fileID: 1065694545}
 --- !u!4 &991233913
 Transform:
   m_ObjectHideFlags: 0

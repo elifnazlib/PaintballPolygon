@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     [Header ("Crosshair")]
     [SerializeField] private Image crosshairImage;                              // Crosshair image to change
     
+    [Header ("Combo")]
+    [SerializeField] private TextMeshProUGUI referencedComboText;               // Referenced combo text to change its color
+    private Color comboColor = Color.white;
+    
     private void Awake()
     {
         _activeSceneName = SceneManager.GetActiveScene().name;
@@ -59,11 +63,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (_activeSceneName != "Playground3") return;
+        
         // Pause menu functionality
         if (Input.GetKeyDown(KeyCode.P))
         {
-            if (_activeSceneName == "Playground3")
-            {
                 if (!pauseMenuPanel.activeSelf && !settingsPanel.activeSelf)
                 {
                     PauseOptions();
@@ -72,14 +76,25 @@ public class GameManager : MonoBehaviour
                 {
                     ResumeOptions();
                 }
-            }
         }
+        
+        // Change the color of the combo text based on its value
+        referencedComboText.color = referencedComboText.text switch
+        {
+            "x1" => Color.white,
+            "x2" => Color.yellow,
+            "x3" => Color.red,
+            "x4" => Color.magenta,
+            "x5" => Color.blue,
+            _ => referencedComboText.color
+        };
     }
 
     public void UpdateScore(string raycastedGameObject, GameObject targetBoardCanvas, int comboMultiplier)
     {
         int tempScore = 0; // Temporary score variable to hold the score before updating the UI
         Color tempColor = Color.white; // Temporary color variable for the floating text
+        
         // This method updates the score according to the raycasted object
         switch (raycastedGameObject)
         {
@@ -112,8 +127,7 @@ public class GameManager : MonoBehaviour
         
         Random random = new Random(); // Creating a random instance to generate random colors
         TextMeshProUGUI floatingText = null;
-        TextMeshProUGUI comboText = null;
-        
+
         if (random.Next(0, 2) == 0)
         {
             floatingText = targetBoardCanvas.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -125,10 +139,12 @@ public class GameManager : MonoBehaviour
         
         floatingText.color = tempColor; // Changing the color of the floating text
         floatingText.text = $"+{tempScore}"; // Setting the text of the floating text
-
+        
+        var comboText = targetBoardCanvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+        comboText.color = referencedComboText.color;
+        
         if (comboMultiplier > 1)
         {
-            comboText = targetBoardCanvas.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
             comboText.transform.SetParent(floatingText.transform, false);
             comboText.transform.position = new Vector3(floatingText.transform.position.x, floatingText.transform.position.y + 0.35f, floatingText.transform.position.z);
             comboText.text = $"x{comboMultiplier}";
