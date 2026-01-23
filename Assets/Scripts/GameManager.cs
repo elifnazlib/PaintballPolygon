@@ -43,6 +43,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI referencedComboText;               // Referenced combo text to change its color
     private Color comboColor = Color.white;
     
+    [Header ("Game Over Panel")]
+    [SerializeField] private TextMeshProUGUI accuracyValueText;               // Accuracy value text to show the accuracy at the end of the game
+    [SerializeField] private TextMeshProUGUI finalScoreText;               // Final score text to show the final score at the end of the game
+    [SerializeField] private TextMeshProUGUI highScoreText;               // High score text to show the high score at the end of the game
+    
     public bool isGameOver = false;
     
     private void Awake()
@@ -274,5 +279,17 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
-    
+
+    public void SetAccuracyValue()
+    {
+        float accuracy = weaponScript.totalHits / (float) weaponScript.totalShotsFired;
+        
+        accuracyValueText.text = $"{accuracy * 100}%";
+    }
+
+    public void SetScoreAndHighScore()
+    {
+        finalScoreText.text = score.ToString();
+        // TODO: High score
+    }
 }

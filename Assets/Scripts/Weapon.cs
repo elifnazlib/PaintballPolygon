@@ -20,6 +20,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject gameOverBulletHolePrefab; // Bullet hole prefab to show overall accuracy at the end of the game
     [SerializeField] private GameObject gameOverTargetBoard; // Target board to show overall accuracy at the end of the game
     [SerializeField] private float yOffset = 0.27f;
+    public int totalShotsFired = 0;
+    public int totalHits = 0;
     
     [Header("Combo Settings")]
     [SerializeField] private int comboCount = 0;
@@ -78,6 +80,8 @@ public class Weapon : MonoBehaviour
 
         RaycastHit hitData; // Storing the hit data
 
+        totalShotsFired++;
+
         if (Physics.Raycast(ray, out hitData)) // If the ray hits something
         {
             GameObject hitGameObject = hitData.collider.gameObject; // TODO: Do we need arrays to detect all the objects?
@@ -101,6 +105,7 @@ public class Weapon : MonoBehaviour
                     
                     
                     // If the ray hits Target Board
+                    totalHits++;
                     
                     comboTimer += comboIncreaseRate;
                     comboActive = true;

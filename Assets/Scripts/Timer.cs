@@ -33,6 +33,8 @@ public class Timer : MonoBehaviour
     {
         gameManager.isGameOver = true; // Set the game over flag in the GameManager
         isTimerEnded = true; // Set the timer as ended
+        gameManager.SetAccuracyValue(); // Set the accuracy value in the GameManager
+        gameManager.SetScoreAndHighScore(); // Set the score and high score in the GameManager
         gameOverPanel.SetActive(true); // Activate the game over panel
         accuracyTargetBoard.SetActive(true); // Activate the accuracy target board
         weaponObject.SetActive(false); // Deactivate the weapon object

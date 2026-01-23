@@ -3454,6 +3454,8 @@ MonoBehaviour:
   gameOverBulletHolePrefab: {fileID: 3381336012349751418, guid: 0a601c1f27a0d1948b13204a6754dfe1, type: 3}
   gameOverTargetBoard: {fileID: 1816923515}
   yOffset: 0.27
+  totalShotsFired: 0
+  totalHits: 0
   comboCount: 0
   maxComboCount: 5
   comboTimer: 0
@@ -7062,7 +7064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f30cadc6fc18c34c98e5eae2f2ca7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTime: 120
+  targetTime: 2
   timerText: {fileID: 587063384}
   gameOverPanel: {fileID: 2068627513}
   accuracyTargetBoard: {fileID: 1816923515}
@@ -7129,6 +7131,9 @@ MonoBehaviour:
   sensitivityValueText: {fileID: 339223927}
   crosshairImage: {fileID: 1950602854}
   referencedComboText: {fileID: 1065694545}
+  accuracyValueText: {fileID: 335829243}
+  finalScoreText: {fileID: 517178761}
+  highScoreText: {fileID: 620993297}
   isGameOver: 0
 --- !u!4 &991233913
 Transform:
@@ -15016,10 +15021,10 @@ RectTransform:
   - {fileID: 772930231}
   - {fileID: 1896670688}
   - {fileID: 335829242}
-  - {fileID: 620993296}
-  - {fileID: 824688486}
   - {fileID: 2066620126}
   - {fileID: 517178760}
+  - {fileID: 620993296}
+  - {fileID: 824688486}
   - {fileID: 385774197}
   - {fileID: 1748773151}
   m_Father: {fileID: 1198058063}
