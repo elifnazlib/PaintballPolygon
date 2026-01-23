@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI accuracyValueText;               // Accuracy value text to show the accuracy at the end of the game
     [SerializeField] private TextMeshProUGUI finalScoreText;               // Final score text to show the final score at the end of the game
     [SerializeField] private TextMeshProUGUI highScoreText;               // High score text to show the high score at the end of the game
+    private int _highScore = 0;
     
     public bool isGameOver = false;
     
@@ -66,6 +67,8 @@ public class GameManager : MonoBehaviour
             
             crosshairImage.sprite = Settings.Instance.crosshairImage.sprite;
         }
+        
+        _highScore = PlayerPrefs.GetInt("HighScore");
     }
 
     private void Update()
@@ -290,6 +293,15 @@ public class GameManager : MonoBehaviour
     public void SetScoreAndHighScore()
     {
         finalScoreText.text = score.ToString();
-        // TODO: High score
+        
+        if (score > _highScore)
+        {
+            _highScore = score;
+            
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.Save();
+        }
+        
+        highScoreText.text = _highScore.ToString();
     }
 }

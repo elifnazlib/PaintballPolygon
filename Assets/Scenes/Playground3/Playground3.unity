@@ -7064,7 +7064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f30cadc6fc18c34c98e5eae2f2ca7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTime: 2
+  targetTime: 10
   timerText: {fileID: 587063384}
   gameOverPanel: {fileID: 2068627513}
   accuracyTargetBoard: {fileID: 1816923515}
@@ -7133,7 +7133,7 @@ MonoBehaviour:
   referencedComboText: {fileID: 1065694545}
   accuracyValueText: {fileID: 335829243}
   finalScoreText: {fileID: 517178761}
-  highScoreText: {fileID: 620993297}
+  highScoreText: {fileID: 824688487}
   isGameOver: 0
 --- !u!4 &991233913
 Transform:
