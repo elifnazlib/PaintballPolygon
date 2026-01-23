@@ -127,7 +127,7 @@ public class Weapon : MonoBehaviour
                     }
                     
                     // Stopping scoring
-                    gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5], comboCount); // Updating the score according to the hit object
+                    gameManager.UpdateScore(hitGameObject.name, listOfSiblings[5], Mathf.Max(1, comboCount)); // Updating the score according to the hit object
                     parentTargetBoard.CanUpdateScore = false; // Preventing the multiple score updates for the same target board
                     parentTargetBoard.IsShot = true; // Preventing the movements on the ground
 
