@@ -35,6 +35,9 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
+        // Reset cursor after scene restart
+        Cursor.lockState = CursorLockMode.Locked; // Locking the cursor to the center of the screen
+        Cursor.visible = false; // Hiding the cursor
     }
 
     void Update()
@@ -58,7 +61,7 @@ public class Weapon : MonoBehaviour
         }
         
         // If the player presses the left mouse button
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && !gameManager.isGameOver)
         { 
             Recoil();
             Shoot(); // Shoot the ray

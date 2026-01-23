@@ -163,7 +163,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.First-Person-Shooter
+    Standalone: com.FN.Paintball-Polygon
   buildNumber:
     Standalone: 0
     VisionOS: 0

@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI referencedComboText;               // Referenced combo text to change its color
     private Color comboColor = Color.white;
     
+    public bool isGameOver = false;
+    
     private void Awake()
     {
         _activeSceneName = SceneManager.GetActiveScene().name;
@@ -261,6 +263,16 @@ public class GameManager : MonoBehaviour
         var button = EventSystem.current.currentSelectedGameObject; // clicked button
         var icon = button.transform.Find("Icon").GetComponent<Image>();
         crosshairImage.sprite = icon.sprite;
+    }
+    
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(_activeSceneName);
+    }
+    
+    public void LoadMenuScene()
+    {
+        SceneManager.LoadScene(0);
     }
     
 }
