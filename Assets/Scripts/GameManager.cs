@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
                 break;
             case "Inner 4":
                 tempScore = innerScore4;
-                tempColor = Color.black; // Setting color for Inner 4
+                tempColor = Color.gray; // Setting color for Inner 4
                 score += innerScore4  * comboMultiplier;
                 break;
             case "Inner 5":
