@@ -6,7 +6,8 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject bulletHolePrefab;
-    private Queue<GameObject> pool = new();
+    private Queue<GameObject> bulletPool = new();
+    private Queue<GameObject> bulletHolePool = new();
     
     void Awake()
     {
@@ -14,15 +15,15 @@ public class ObjectPool : MonoBehaviour
         {
             GameObject obj = Instantiate(bulletHolePrefab);
             obj.SetActive(false);
-            pool.Enqueue(obj);
+            bulletHolePool.Enqueue(obj);
         }
     }
 
-    public GameObject GetObjectFromPool()
+    public GameObject GetBulletFromPool()
     {
-        if (pool.Count > 0)
+        if (bulletPool.Count > 0)
         {
-            GameObject obj = pool.Dequeue();
+            GameObject obj = bulletPool.Dequeue();
             obj.SetActive(true);
             return obj;
         }
@@ -30,9 +31,45 @@ public class ObjectPool : MonoBehaviour
         return Instantiate(bulletPrefab);
     }
 
-    public void ReturnObjectToPool(GameObject obj)
+    public void ReturnBulletToPool(GameObject obj)
     {
         obj.SetActive(false);
-        pool.Enqueue(obj);
+        bulletPool.Enqueue(obj);
     }
+    
+    public IEnumerator DeactivateBullet(GameObject obj, Rigidbody rb)
+    {
+        yield return new WaitForSeconds(3f);
+        if (!obj.activeSelf) yield break;
+        
+        rb.velocity = Vector3.zero; // Resetting velocity before returning to pool
+        ReturnBulletToPool(obj); // Return to Pool
+    }
+    
+    
+    public GameObject GetBulletHoleFromPool()
+    {
+        if (bulletHolePool.Count > 0)
+        {
+            GameObject obj = bulletHolePool.Dequeue();
+            obj.SetActive(true);
+            return obj;
+        }
+        return Instantiate(bulletHolePrefab);
+    }
+    
+    public void ReturnBulletHoleToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+        bulletHolePool.Enqueue(obj);
+    }
+    
+    public IEnumerator DeactivateBulletHole(GameObject obj)
+    {
+        yield return new WaitForSeconds(3f);
+        if (!obj.activeSelf) yield break;
+        
+        ReturnBulletHoleToPool(obj); // Return to Pool
+    }
+    
 }

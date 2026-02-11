@@ -15,6 +15,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private AudioClip shootSound; // Sound to play when the player shoots
     [SerializeField] private GameObject muzzle; // Muzzle location for shoot sound and effects
     [SerializeField] private ParticleSystem splashParticleSystem;
+
+    private ObjectPool pool;
     
     [Header("Game Over Settings")]
     [SerializeField] private GameObject gameOverBulletHolePrefab; // Bullet hole prefab to show overall accuracy at the end of the game
@@ -37,6 +39,7 @@ public class Weapon : MonoBehaviour
     private void Start()
     {
         gameManager = (GameManager)FindFirstObjectByType(typeof(GameManager)); // Finding the GameManager instance (for better performance)
+        pool = FindAnyObjectByType<ObjectPool>();
         // Reset cursor after scene restart
         Cursor.lockState = CursorLockMode.Locked; // Locking the cursor to the center of the screen
         Cursor.visible = false; // Hiding the cursor
@@ -154,8 +157,13 @@ public class Weapon : MonoBehaviour
             else
             {
                 // Moving the bullet hole slightly forward to avoid z-fighting
-                GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
-
+               
+                // GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal)); // Instantiating the bullet hole prefab at the hit point with the normal rotation
+                GameObject bulletHole = pool.GetBulletHoleFromPool();
+                bulletHole.transform.position = hitData.point + hitData.normal * 0.001f;
+                bulletHole.transform.rotation = Quaternion.LookRotation(hitData.normal);
+                StartCoroutine(pool.DeactivateBulletHole(bulletHole));
+                
                 // If the ray hits something other than Target Board
                 ResetCombo();
             }
