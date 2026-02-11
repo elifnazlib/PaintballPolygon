@@ -93,9 +93,9 @@ public class GameManager : MonoBehaviour
         {
             "x1" => Color.white,
             "x2" => Color.yellow,
-            "x3" => Color.red,
-            "x4" => Color.magenta,
-            "x5" => Color.blue,
+            "x3" => new Color(	1f, 0.6f, 0f),
+            "x4" => Color.red,
+            "x5" => Color.magenta,
             _ => referencedComboText.color
         };
     }
@@ -272,22 +272,12 @@ public class GameManager : MonoBehaviour
         var icon = button.transform.Find("Icon").GetComponent<Image>();
         crosshairImage.sprite = icon.sprite;
     }
-    
-    public void ReloadScene()
-    {
-        SceneManager.LoadScene(_activeSceneName);
-    }
-    
-    public void LoadMenuScene()
-    {
-        SceneManager.LoadScene(0);
-    }
 
     public void SetAccuracyValue()
     {
         float accuracy = weaponScript.totalHits / (float) weaponScript.totalShotsFired;
         
-        accuracyValueText.text = $"{accuracy * 100}%";
+        accuracyValueText.text = $"{accuracy * 100:0.##}%"; // For 2 decimal places after the comma
     }
 
     public void SetScoreAndHighScore()
