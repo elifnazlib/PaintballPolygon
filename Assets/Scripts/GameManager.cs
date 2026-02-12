@@ -91,11 +91,11 @@ public class GameManager : MonoBehaviour
         // Change the color of the combo text based on its value
         referencedComboText.color = referencedComboText.text switch
         {
-            "x1" => Color.white,
-            "x2" => Color.yellow,
-            "x3" => new Color(	1f, 0.6f, 0f),
-            "x4" => Color.red,
-            "x5" => Color.magenta,
+            "X1" => Color.white,
+            "X2" => Color.yellow,
+            "X3" => new Color(	1f, 0.6f, 0f),
+            "X4" => Color.red,
+            "X5" => Color.magenta,
             _ => referencedComboText.color
         };
     }
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         {
             comboText.transform.SetParent(floatingText.transform, false);
             comboText.transform.position = new Vector3(floatingText.transform.position.x, floatingText.transform.position.y + 0.35f, floatingText.transform.position.z);
-            comboText.text = $"x{comboMultiplier}";
+            comboText.text = $"X{comboMultiplier}";
             comboText.transform.DOPunchPosition(-1 * Vector3.forward, 0.1f, 4, 1f, false);
             comboText.transform.DOScale(comboText.transform.localScale * 2, fadeDuration);
             // comboText.transform.DOShakePosition(fadeDuration, 0.1f, 5, 0f, false, true, ShakeRandomnessMode.Harmonic);

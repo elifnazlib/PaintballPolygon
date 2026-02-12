@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -55,7 +56,7 @@ public class Weapon : MonoBehaviour
             }
             
             comboCount = (int) (comboTimer + 1);  // Ekranda x şeklinde gösterim için
-            comboText.text = $"x{comboCount}";
+            comboText.text = $"X{comboCount}";
             comboSlider.value = comboTimer + 1 - comboCount;
             comboTimer -= Time.deltaTime * comboDecayRate;
             
@@ -93,8 +94,14 @@ public class Weapon : MonoBehaviour
             {
                 GameObject parentOfHitGameObject = hitGameObject.transform.parent.gameObject; // Getting the parent of the hit object
                 TargetBoard parentTargetBoard = parentOfHitGameObject.GetComponent<TargetBoard>();
-                GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform); // Instantiating the bullet hole prefab at the hit point with the normal rotation
-
+                
+                // GameObject bulletHole = Instantiate(bulletHolePrefab, hitData.point + hitData.normal * 0.001f, Quaternion.LookRotation(hitData.normal), hitGameObject.transform); // Instantiating the bullet hole prefab at the hit point with the normal rotation
+                GameObject bulletHole = pool.GetBulletHoleFromPool();
+                bulletHole.transform.position = hitData.point + hitData.normal * 0.001f;
+                bulletHole.transform.rotation = Quaternion.LookRotation(hitData.normal);
+                bulletHole.transform.SetParent(hitGameObject.transform);
+                StartCoroutine(pool.DeactivateBulletHole(bulletHole));
+                
                 if (parentTargetBoard.CanUpdateScore)
                 {
                     Vector3 localHitPoint = parentTargetBoard.transform.InverseTransformPoint(hitData.point);
@@ -145,7 +152,8 @@ public class Weapon : MonoBehaviour
                         rb.useGravity = true; // Applying gravity to the inner circles
                         rb.AddForce(-Vector3.forward * forceMultiplier, ForceMode.Impulse); // Applying an impulse force to the inner circles
                     }
-                    
+
+                    StartCoroutine(SetParentOfBulletHole(hitGameObject, randomDurationForDisappear - 0.1f));
                     Destroy(parentOfHitGameObject, randomDurationForDisappear); // Destroys the target board game object after waiting "randomDurationForDisappear"
                 }
                 else
@@ -189,13 +197,21 @@ public class Weapon : MonoBehaviour
     {
         if (comboActive)
         {
-            Debug.Log($"Combo ended at x{comboCount}");
+            Debug.Log($"Combo ended at X{comboCount}");
         }
         comboCount = 0;
         comboActive = false;
         comboTimer = 0f;
         
         comboSlider.value = 0f;
-        comboText.text = "x1";
+        comboText.text = "X1";
+    }
+    
+    // This method sets the parent of the bullet hole to null
+    // for not getting destroyed with the target board
+    IEnumerator SetParentOfBulletHole(GameObject bulletHole, float time)
+    {
+        yield return new WaitForSeconds(time);
+        bulletHole.transform.GetChild(0).SetParent(null);
     }
 }

@@ -772,8 +772,8 @@ RectTransform:
   - {fileID: 1587548626}
   - {fileID: 347874829}
   - {fileID: 1851635548}
-  - {fileID: 237406667}
   - {fileID: 755146043}
+  - {fileID: 237406667}
   m_Father: {fileID: 2053377200}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1600,7 +1600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -370}
+  m_AnchoredPosition: {x: 0, y: -470}
   m_SizeDelta: {x: 400, y: 79.49701}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &237406668
@@ -1885,7 +1885,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time is up!
+  m_text: TIME IS UP!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -4585,7 +4585,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4792,7 +4792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'High Score:'
+  m_text: 'HIGH SCORE:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -5064,7 +5064,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -470}
+  m_AnchoredPosition: {x: 0, y: -370}
   m_SizeDelta: {x: 400, y: 79.49701}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &755146044
@@ -5988,7 +5988,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit to menu
+  m_text: QUIT TO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -6937,7 +6937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -11}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 336.6794, y: 80.7442}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &986228047
@@ -7068,7 +7068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f30cadc6fc18c34c98e5eae2f2ca7ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTime: 120
+  targetTime: 10
   timerText: {fileID: 587063384}
   gameOverPanel: {fileID: 2068627513}
   accuracyTargetBoard: {fileID: 1816923515}
@@ -7495,7 +7495,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: x1
+  m_text: X1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -7588,7 +7588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 115, y: -87}
+  m_AnchoredPosition: {x: 130, y: -92}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1082177537
@@ -9344,7 +9344,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -110}
+  m_AnchoredPosition: {x: 35, y: -110}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1196130301
@@ -9372,7 +9372,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -9386,7 +9386,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1892095133}
   m_FillRect: {fileID: 419924927}
   m_HandleRect: {fileID: 1892095132}
@@ -10219,7 +10219,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: One more time...
+  m_text: ONE MORE TIME...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -11132,7 +11132,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -11360,7 +11360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -11}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 500, y: 80.7442}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1587548627
@@ -13896,7 +13896,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Accuracy: '
+  m_text: 'ACCURACY: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -14954,7 +14954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 'SCORE:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -15285,7 +15285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Your shots
+  m_text: YOUR SHOTS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
   m_sharedMaterial: {fileID: 8337586438936888049, guid: 46a454d667fad7e4f9a40765b47cd7b8, type: 2}
@@ -15318,7 +15318,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
